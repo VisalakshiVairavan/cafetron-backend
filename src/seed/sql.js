@@ -16,7 +16,7 @@ export const createEmployee = `CREATE TABLE employee (
 export const createEmployeeCafe = `CREATE TABLE employee_cafe (
     employee_id VARCHAR(10) REFERENCES Employee(id) ON DELETE CASCADE,
     cafe_id BINARY(16) REFERENCES Cafe(id) ON DELETE CASCADE,
-    start_date DATE NOT NULL,
+    start_date DATE DEFAULT (CURRENT_DATE) ,
     PRIMARY KEY (employee_id),
     CONSTRAINT emp_cafe_unq Unique(cafe_id, employee_id))`;
 

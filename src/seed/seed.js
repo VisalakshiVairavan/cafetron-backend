@@ -52,11 +52,10 @@ const loadAndSaveData = async () => {
     console.log("***employeeCafe saved***");
 
     const cafeIdString = await dbQuery(selectAllCafeIDs);
-
     await dbQuery(updateTop3EmployeeCafe, [cafeIdString[0].uuid_id]);
     await dbQuery(updateRestEmployeeCafe, [cafeIdString[1].uuid_id]);
-
-    console.log("***employeeCafe cafe updated***", cafeIdString);
+    console.log("***employeeCafe cafe updated***");
+    
   } catch (err) {
     console.error(err);
   }

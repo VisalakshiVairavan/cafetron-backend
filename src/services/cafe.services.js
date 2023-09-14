@@ -41,7 +41,7 @@ export async function updateCafe(cafe) {
     throw Error("Cafe not found");
   }
 
-  let updateString =
+  const updateString =
     "UPDATE cafe SET location = ?, name = ?, description = ? WHERE id = UUID_TO_BIN(?);";
 
   return await dbQuery(updateString, [
