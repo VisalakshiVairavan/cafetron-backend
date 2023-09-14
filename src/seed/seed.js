@@ -1,16 +1,17 @@
 import {
-  dropCafeSQL,
-  dropEmployeeSQL,
-  dropEmployeeCafeSQL,
   createCafe,
   createEmployee,
   createEmployeeCafe,
   insertCafeSQL,
   insertEmployeeDQL,
   insertEmployeeCafeSQL,
+  dropCafeSQL,
+  dropEmployeeSQL,
+  dropEmployeeCafeSQL,
 } from "./sql.js";
+
 import { seedData } from "./seed_data.js";
-import {dbQuery} from '../services/db.services.js';
+import { dbQuery } from "../services/db.services.js";
 
 const loadAndSaveData = async () => {
   try {
@@ -36,19 +37,15 @@ const loadAndSaveData = async () => {
 
     const { cafe, employee, employeeCafe } = seedData;
 
-     // Insert seed data
+    // Insert seed data
     await dbQuery(insertCafeSQL, [getInsertData(cafe)]);
     console.log("***cafe saved***");
 
     await dbQuery(insertEmployeeDQL, [getInsertData(employee)]);
     console.log("***employee saved***");
 
-    await dbQuery(
-      insertEmployeeCafeSQL,
-      [getInsertData(employeeCafe)]
-    );
+    await dbQuery(insertEmployeeCafeSQL, [getInsertData(employeeCafe)]);
     console.log("***employeeCafe saved***");
-
   } catch (err) {
     console.error(err);
   }
