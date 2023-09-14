@@ -3,15 +3,19 @@ import {
   createEmployee,
   createEmployeeCafe,
   insertCafeSQL,
-  insertEmployeeDQL,
+  insertEmployeeSQL,
   insertEmployeeCafeSQL,
   dropCafeSQL,
   dropEmployeeSQL,
   dropEmployeeCafeSQL,
+  selectAllCafeIDs,
+  updateTop3EmployeeCafe,
+  updateRestEmployeeCafe,
 } from "./sql.js";
 
 import { seedData } from "./seed_data.js";
 import { dbQuery } from "../services/db.services.js";
+import {getInsertData} from '../utils/helper.js';
 
 const loadAndSaveData = async () => {
   try {
@@ -41,18 +45,21 @@ const loadAndSaveData = async () => {
     await dbQuery(insertCafeSQL, [getInsertData(cafe)]);
     console.log("***cafe saved***");
 
-    await dbQuery(insertEmployeeDQL, [getInsertData(employee)]);
+    await dbQuery(insertEmployeeSQL, [getInsertData(employee)]);
     console.log("***employee saved***");
 
     await dbQuery(insertEmployeeCafeSQL, [getInsertData(employeeCafe)]);
     console.log("***employeeCafe saved***");
+
+    const cafeIdString = await dbQuery(selectAllCafeIDs);
+
+    await dbQuery(updateTop3EmployeeCafe, [cafeIdString[0].uuid_id]);
+    await dbQuery(updateRestEmployeeCafe, [cafeIdString[1].uuid_id]);
+
+    console.log("***employeeCafe cafe updated***", cafeIdString);
   } catch (err) {
     console.error(err);
   }
-};
-
-const getInsertData = (data) => {
-  return data.map((obj) => Object.values(obj));
 };
 
 await loadAndSaveData();
