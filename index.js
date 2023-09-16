@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cafeRouter from "./src/routes/cafe.route.js";
 import employeeRouter from "./src/routes/employee.route.js";
+import cors from "cors";
+import { dbHeartBeat } from "./src/utils/heart-beat.js";
 dotenv.config();
 
 const app = express();
@@ -14,10 +16,20 @@ app.use(
     extended: true,
   })
 );
+app.use(cors());
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
+
 app.use("/cafe", cafeRouter);
 app.use("/employee", employeeRouter);
 
@@ -32,4 +44,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Cafetron app listening at http://localhost:${port}`);
+  dbHeartBeat();
 });

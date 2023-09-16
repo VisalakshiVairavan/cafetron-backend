@@ -1,5 +1,5 @@
-import { dbQuery } from "./db.services.js";
 import mysql from "mysql2/promise";
+import { dbQuery } from "./db.services.js";
 import { getInData } from "../utils/helper.js";
 
 export async function getMultipleCafe(location) {
@@ -35,7 +35,7 @@ export async function updateCafe(cafe) {
     throw Error("Required fields missing");
   }
   const checkCafeExits = "SELECT id FROM cafe WHERE id = UUID_TO_BIN(?)";
-
+  
   const cafeFromDB = await dbQuery(checkCafeExits, cafe.id);
   if (!cafeFromDB || !cafeFromDB.length) {
     throw Error("Cafe not found");
@@ -57,7 +57,7 @@ export async function deleteCafe(cafeId) {
     "SELECT employee.id FROM employee JOIN employee_cafe ON employee.id = employee_cafe.employee_id WHERE cafe_id = UUID_TO_BIN(?)";
   const empList = await dbQuery(empListString, [cafeId]);
   if (empList && empList.length) {
-    const deleteEmp = "DELETE FROM employee WHERE id IN (?) ";
+    const deleteEmp = "DELETE FROM employee WHERE id IN (?)";
     await dbQuery(deleteEmp, [getInData(empList)]);
   }
   const deleteString = "DELETE FROM cafe WHERE id = UUID_TO_BIN(?)";

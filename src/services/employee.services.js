@@ -1,5 +1,5 @@
-import { dbQuery } from "./db.services.js";
 import mysql from "mysql2/promise";
+import { dbQuery } from "./db.services.js";
 import { empIdGen } from "../utils/helper.js";
 
 export async function getMultipleEmployee(cafeId) {
@@ -33,9 +33,16 @@ export async function insertEmployee(employee) {
 
   const empId = empIdGen();
   const result = await dbQuery(insertString, [
-    [[empId, employee.name, employee.phone_number, employee.gender, employee.email_address]],
+    [
+      [
+        empId,
+        employee.name,
+        employee.phone_number,
+        employee.gender,
+        employee.email_address,
+      ],
+    ],
   ]);
-  console.log("result", result);
 
   if (employee.cafe_id) {
     const insertEmployeeCafe =
@@ -45,7 +52,6 @@ export async function insertEmployee(employee) {
 
   return result;
 }
-
 
 export async function updateEmployee(employee) {
   if (
@@ -87,6 +93,8 @@ export async function updateEmployee(employee) {
 }
 
 export async function deleteEmployee(employeeId) {
+  const deleteStringCafe = "DELETE FROM employee_cafe WHERE employee_id = ?";
+  await dbQuery(deleteStringCafe, [employeeId]);
   const deleteString = "DELETE FROM employee WHERE id = ? ";
   return await dbQuery(deleteString, [employeeId]);
 }

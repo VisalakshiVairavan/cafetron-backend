@@ -13,7 +13,6 @@
     "express",
     "rest",
     "api",
-    "sequelize",
     "mysql"
   ],
   "author": "Visalakshi V",

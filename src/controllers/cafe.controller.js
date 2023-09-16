@@ -1,4 +1,9 @@
-import { getMultipleCafe, insertCafe, updateCafe, deleteCafe as deleteCafeFromDB } from "../services/cafe.services.js";
+import {
+  getMultipleCafe,
+  insertCafe,
+  updateCafe,
+  deleteCafe as deleteCafeFromDB,
+} from "../services/cafe.services.js";
 
 export async function getCafe(req, res, next) {
   try {

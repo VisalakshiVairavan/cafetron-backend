@@ -5,6 +5,7 @@ import {
   putEmployee,
   deleteEmployee,
 } from "../controllers/employee.controller.js";
+
 const EmployeeRouter = express.Router();
 
 EmployeeRouter.get("/", getEmployee);
