@@ -1,14 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import cafeRouter from "./src/routes/cafe.route.js";
-import employeeRouter from "./src/routes/employee.route.js";
+import cafeRouter from "./routes/cafe.route.js";
+import employeeRouter from "./routes/employee.route.js";
 import cors from "cors";
-import { dbHeartBeat } from "./src/utils/heart-beat.js";
+import { dbHeartBeat } from "./utils/heart-beat.js";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(
@@ -26,23 +26,26 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.json({ message: "ok" });
-});
+
 
 app.use("/cafe", cafeRouter);
 app.use("/employee", employeeRouter);
+
+app.get("/", (req, res) => {
+  res.json({ message: "***Cafetron backed is up***" });
+});
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
   res.status(statusCode).json({ message: err.message });
-
   return;
 });
 
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, () => {
   console.log(`Cafetron app listening at http://localhost:${port}`);
   dbHeartBeat();
 });
+
+export default app;

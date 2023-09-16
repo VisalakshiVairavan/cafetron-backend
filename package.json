@@ -4,8 +4,8 @@
   "description": "A backend API for list Cafes and their employees",
   "main": "index.js",
   "scripts": {
-    "seed": "node src/seed/seed.js",
-    "start": "node index.js"
+    "seed": "node api/seed/seed.js",
+    "start": "node api/index.js"
   },
   "type": "module",
   "keywords": [
@@ -15,6 +15,9 @@
     "api",
     "mysql"
   ],
+  "engines": {
+    "node": "18.x"
+  },
   "author": "Visalakshi V",
   "license": "ISC",
   "dependencies": {

@@ -4,7 +4,7 @@ import { getInData } from "../utils/helper.js";
 
 export async function getMultipleCafe(location) {
   let selectCafe = `
-  SELECT BIN_TO_UUID(cafe.id) as cafeId,cafe.name, cafe.description, cafe.location , COUNT(employee_id) AS employee_count
+  SELECT BIN_TO_UUID(cafe.id) as id,cafe.name, cafe.description, cafe.location , COUNT(employee_id) AS employee_count
   FROM cafe LEFT JOIN employee_cafe 
   ON cafe.id = employee_cafe.cafe_id `;
 

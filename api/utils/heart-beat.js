@@ -5,6 +5,7 @@ import { dbQuery } from "../services/db.services.js";
 
 export function dbHeartBeat() {
   setInterval(() => {
-    dbQuery("SELECT 1");
+     dbQuery("SELECT 1 FROM cafe");
+    console.log("***DB HEART BEAT ***")
   }, 15 * 60 * 1000);
 }

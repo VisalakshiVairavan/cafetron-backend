@@ -16,6 +16,8 @@ async function dbConnection() {
 
 export async function dbQuery(sql, params) {
   const conn = await dbConnection();
+  console.log("sql",sql);
   const [result] = await conn.query(sql, params);
+  console.log("sql executed");
   return result;
 }
