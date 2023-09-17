@@ -35,3 +35,17 @@ I have used planet scale mysql db and add the connection string in .env - But th
 - After your password has been generated, choose Node.js MySQL from the dropdown labeled as General. 
 
 - Copy the value of your connection string into .env DATABASE_URL
+
+### Vercel 
+
+The apis are hosted in [cafetron-backend.vercel.app](https://cafetron-backend.vercel.app/)
+
+
+### Docker 
+
+Alternatively this app can be build and run using docker in local after the DATABASE_URL is added to .env file 
+
+```docker build -f Dockerfile -t server .```
+
+```docker run -it -p 8080:8080 server```
+
